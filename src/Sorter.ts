@@ -4,11 +4,12 @@ export interface Sortable {
   length: number;
 }
 
-export class Sorter {
-  constructor(public collection: Sortable) {}
-
+export abstract class Sorter {
+  abstract length: number;
+  abstract compare(leftIndex: number, rightIndex: number): boolean;
+  abstract swap(leftIndex: number, rightIndex: number): void;
   sort(): void {
-    const { length } = this.collection;
+    const { length } = this;
 
     if (length > 1) {
       for (let i = length - 1; i >= 0; i--) {
@@ -17,14 +18,10 @@ export class Sorter {
           //instance of objects with a constructor
           // number, string, boolean
 
-          if (this.collection.compare(j, j + 1)) {
-            this.collection.swap(j, j + 1);
+          if (this.compare(j, j + 1)) {
+            this.swap(j, j + 1);
 
             //ITS A RAINBOW WOOOOOooooo
-          }
-
-          ///typeof is for primitives
-          if (typeof this.collection === "string") {
           }
         }
       }
